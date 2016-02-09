@@ -13,14 +13,11 @@ context = zmq.Context()
 
 #create socket from the context
 socket = context.socket(zmq.PAIR)
-
-socket.connect("tcp://localhost:%s" % port)
-print 'bound server to port'
+#bind socket to port
+socket.bind("tcp://*:%s" % port)
 
 while True:
-	msg = socket.recv()
+	socket.send("Server message to client3")
+	msg= socket.recv()
 	print msg
-	socket.send('client message to server1')
-	socket.send('client message to server2')
 	time.sleep(1)
-
